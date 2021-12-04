@@ -72,6 +72,10 @@ router.post('/', (req, res) => {
       res.json(dbUserData);
     });
   })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json(err);
+  });
 });
 
 router.post('/login', (req, res) => {
@@ -85,8 +89,6 @@ router.post('/login', (req, res) => {
       res.status(400).json({ message: 'No user with that email address!' });
       return;
     }
-
-    // res.json({ user: dbUserData });
 
     // Verify user
     const validPassword = dbUserData.checkPassword(req.body.password);
